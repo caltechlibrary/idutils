@@ -697,6 +697,13 @@ def is_viaf(val):
     else:
         return False
 
+def is_clpid(val):
+    """This is poorly implemented check for a Caltech person ID"""
+    if '-' in val:
+        return True
+    else:
+        return False
+
 
 PID_SCHEMES = [
     ("doi", is_doi),
@@ -733,6 +740,7 @@ PID_SCHEMES = [
     ("arrayexpress_experiment", is_arrayexpress_experiment),
     ("swh", is_swh),
     ("viaf", is_viaf),
+    ("clpid", is_clpid),
 ]
 """Definition of scheme name and associated test function.
 
