@@ -866,3 +866,10 @@ def test_ascl():
     assert idutils.is_ascl("ascl:1908.011")
     assert idutils.is_ascl("ascl:1908.0113")
     assert not idutils.is_ascl("1990.0803")
+
+
+def test_url():
+    """Test URL validation."""
+    assert idutils.is_url(
+        "https://archive.softwareheritage.org/swh:1:dir:44ac666e75004dd2a27ca0e09e73aecc0e8b426f;origin=https://github.com/amykwebster/MIPseq_2021;visit=swh:1:snp:46bcbe75339295c3d68fcf1257022aae8e6bee40;anchor=swh:1:rev:27839dcc9ef1587086be195349310fb70fbfcaf1"
+    )
