@@ -20,6 +20,13 @@ from urllib.parse import urlparse
 from .utils import *
 from .utils import _convert_x_to_10
 
+def is_clpid(val):
+    """This is minimally implemented check for a Caltech person ID"""
+    if '-' in val:
+        return True
+    else:
+        return False
+
 
 def is_isbn(val):
     """Test if argument is an ISBN-10 or ISBN-13 number."""
