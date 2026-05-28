@@ -11,6 +11,10 @@
 Changes
 =======
 
+Version v1.6.1 (released 2026-05-28)
+
+- setup: replace isbnlib with isbnlib2
+
 Version v1.6.0 (released 2026-03-19)
 
 - refactor: remove DeprecationWarning
