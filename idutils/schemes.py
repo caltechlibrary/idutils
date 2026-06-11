@@ -50,6 +50,7 @@ IDUTILS_PID_SCHEMES = [
     ("openalex", validators.is_openalex),
     ("cstr", validators.is_cstr),
     ("rrid", validators.is_rrid),
+    ("raid", validators.is_raid),
 ]
 """Definition of scheme name and associated test function.
 
@@ -77,5 +78,10 @@ IDUTILS_SCHEME_FILTER = [
     ),
     ("pmid", ["viaf"]),
     ("wikidata", ["gnd", "viaf"]),
+    # RAiDs are issued as DOIs via DataCite and reuse the DOI "10.xxxx/yyyy"
+    # namespace, so a "10.xxxx/yyyy" value matches both; prefer "doi" so
+    # detection of existing DOIs is unaffected. Only the RAiD-exclusive
+    # "102.xxxx/yyyy" form (or a raid.org URL) is reported as "raid".
+    ("doi", ["raid"]),
 ]
 """(present_scheme, [list of schemes to remove if present_scheme found])."""
