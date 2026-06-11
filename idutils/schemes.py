@@ -80,8 +80,8 @@ IDUTILS_SCHEME_FILTER = [
     ("wikidata", ["gnd", "viaf"]),
     # RAiDs are issued as DOIs via DataCite and reuse the DOI "10.xxxx/yyyy"
     # namespace, so a "10.xxxx/yyyy" value matches both; prefer "doi" so
-    # detection of existing DOIs is unaffected. Only the RAiD-exclusive
-    # "102.xxxx/yyyy" form (or a raid.org URL) is reported as "raid".
+    # detection of existing DOIs is unaffected. A raid.org URL is the only
+    # form that does not also match "doi", so it is reported as "raid".
     ("doi", ["raid"]),
 ]
 """(present_scheme, [list of schemes to remove if present_scheme found])."""

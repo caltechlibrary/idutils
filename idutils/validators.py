@@ -395,7 +395,8 @@ def is_raid(val):
 
     Note, RAiDs are issued as DOIs via DataCite and reuse the DOI
     "10.xxxx/yyyy" namespace, so a value may also validate as DOI/Handle.
-    Only the "102.xxxx/yyyy" form is RAiD-exclusive.
+    RAiD and DOI are format-identical; there is no format-level
+    disambiguator.
 
     See https://www.raid.org/
     """
