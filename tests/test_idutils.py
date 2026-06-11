@@ -814,6 +814,18 @@ identifiers = [
         "RRID:SCR_014641",
         "http://scicrunch.org/resolver/RRID:SCR_014641",
     ),
+    (
+        "https://raid.org/10.83962/fb5be317",
+        ["url", "raid"],
+        "https://raid.org/10.83962/fb5be317",
+        "https://raid.org/10.83962/fb5be317",
+    ),
+    (
+        "https://raid.org/10.83962/f2a7645d",
+        ["url", "raid"],
+        "https://raid.org/10.83962/f2a7645d",
+        "https://raid.org/10.83962/f2a7645d",
+    ),
 ]
 
 
@@ -1004,3 +1016,57 @@ def test_openalex():
     assert not idutils.is_openalex("Q303")
     assert not idutils.is_openalex("openalex:Q1234567")
     assert not idutils.is_openalex("https://openalex.org/Q1234567")
+
+
+def test_raid():
+    """Test RAiD validation and normalization."""
+    # Bare short forms.
+    assert idutils.is_raid("10.26259/0e59e9a5")
+    assert idutils.is_raid("10.83962/fb5be317")
+
+    # Full URL forms, including a mixed-case scheme/host.
+    assert idutils.is_raid("https://raid.org/10.26259/0e59e9a5")
+    assert idutils.is_raid("https://raid.org/10.83962/f2a7645d")
+    assert idutils.is_raid("HTTPS://RAID.ORG/10.26259/0E59E9A5")
+
+    assert not idutils.is_raid("")
+    assert not idutils.is_raid("not-a-raid")
+    assert not idutils.is_raid("11.26259/0e59e9a5")  # does not start with 10
+    assert not idutils.is_raid("102.26259/0e59e9a5")  # "102." is not a real RAiD prefix
+
+    # Normalization strips the resolver prefix, leaving the bare form.
+    assert idutils.normalize_raid("10.26259/0e59e9a5") == "10.26259/0e59e9a5"
+    assert (
+        idutils.normalize_raid("https://raid.org/10.26259/0e59e9a5")
+        == "10.26259/0e59e9a5"
+    )
+    assert (
+        idutils.normalize_raid("HTTPS://RAID.ORG/10.26259/0E59E9A5")
+        == "10.26259/0E59E9A5"
+    )
+
+    # Resolver URL generation.
+    assert (
+        idutils.to_url("10.26259/0e59e9a5", "raid")
+        == "http://raid.org/10.26259/0e59e9a5"
+    )
+    assert (
+        idutils.to_url("10.26259/0e59e9a5", "raid", "https")
+        == "https://raid.org/10.26259/0e59e9a5"
+    )
+
+    # RAiDs are issued as DOIs via DataCite and reuse the DOI "10.xxxx/yyyy"
+    # namespace, so RAiD and DOI are format-identical; there is no
+    # format-level disambiguator. Any "10.xxxx/yyyy" identifier validates as
+    # both DOI and RAiD.
+    for shared in ("10.26259/0e59e9a5", "10.83962/fb5be317"):
+        assert idutils.is_doi(shared)
+        assert idutils.is_raid(shared)
+
+    # detect_identifier_schemes() prefers "doi" for the shared namespace, so
+    # detection of existing DOIs is unaffected by RAiD support. A raid.org
+    # URL is the only form reported as "raid".
+    assert idutils.detect_identifier_schemes("10.26259/0e59e9a5") == ["doi", "handle"]
+    assert "raid" in idutils.detect_identifier_schemes(
+        "https://raid.org/10.83962/fb5be317"
+    )
