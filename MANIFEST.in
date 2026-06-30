@@ -8,10 +8,8 @@
 include *.rst
 include .coveragerc
 include .editorconfig
-include docs/*.py
-include docs/*.rst
-include docs/Makefile
-include docs/requirements.txt
+include mkdocs.yml
+recursive-include docs *.md
 include .lgtm
 include LICENSE
 include MAINTAINERS
@@ -22,4 +20,3 @@ recursive-include docs *.py
 recursive-include tests *.py
 recursive-include .github/workflows *.yml
 include .git-blame-ignore-revs
-include .readthedocs.yaml

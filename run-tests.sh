@@ -10,5 +10,5 @@ set -o errexit
 set -o nounset
 
 python -m check_manifest
-python -m sphinx.cmd.build -qnNW docs docs/_build/html
+zensical build
 python -m pytest
