@@ -42,7 +42,7 @@ Features
 - Supported schemes: ISBN10, ISBN13, ISSN, ISTC, DOI, Handle, EAN8, EAN13, ISNI
   ORCID, ARK, PURL, LSID, URN, Bibcode, arXiv, PubMed ID, PubMed Central ID,
   GND, SRA, BioProject, BioSample, Ensembl, UniProt, RefSeq, GenBank/RefSeq, SWH,
-  OpenAlex, CSTR, RRID.
+  OpenAlex, CSTR, RRID, RAiD.
 
 Installation
 ============

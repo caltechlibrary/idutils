@@ -388,3 +388,16 @@ def is_cstr(val):
 def is_rrid(val):
     """Test if argument is a RRID."""
     return rrid_regexp.match(val)
+
+
+def is_raid(val):
+    """Test if argument is a RAiD (Research Activity Identifier).
+
+    Note, RAiDs are issued as DOIs via DataCite and reuse the DOI
+    "10.xxxx/yyyy" namespace, so a value may also validate as DOI/Handle.
+    RAiD and DOI are format-identical; there is no format-level
+    disambiguator.
+
+    See https://www.raid.org/
+    """
+    return raid_regexp.match(val)

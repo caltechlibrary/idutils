@@ -142,6 +142,12 @@ def normalize_openalex(val):
     return m.group(2).upper()
 
 
+def normalize_raid(val):
+    """Normalize a RAiD."""
+    m = raid_regexp.match(val)
+    return m.group(2)
+
+
 def normalize_pid(val, scheme):
     """Normalize an identifier.
 
@@ -181,6 +187,8 @@ def normalize_pid(val, scheme):
         return normalize_qid(val)
     elif scheme == "openalex":
         return normalize_openalex(val)
+    elif scheme == "raid":
+        return normalize_raid(val)
     else:
         for custom_scheme, normalizer in custom_schemes_registry().pick_scheme_key(
             "normalizer"
@@ -218,6 +226,7 @@ IDUTILS_LANDING_URLS = {
     "wikidata": "{scheme}://www.wikidata.org/entity/{pid}",
     "openalex": "{scheme}://openalex.org/{pid}",
     "rrid": "{scheme}://scicrunch.org/resolver/{pid}",
+    "raid": "{scheme}://raid.org/{pid}",
 }
 """URL generation configuration for the supported PID providers."""
 

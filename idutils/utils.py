@@ -18,6 +18,17 @@ doi_regexp = re.compile(
 )
 """See http://en.wikipedia.org/wiki/Digital_object_identifier."""
 
+raid_regexp = re.compile(
+    r"((?:https?://)?raid\.org/)?(10\.\d+(\.\d+)*/.+)$", flags=re.I
+)
+"""See https://www.raid.org/.
+
+RAiDs are issued as DOIs via DataCite, reusing the DOI "10.xxxx/yyyy"
+namespace; RAiD and DOI are format-identical, so there is no
+format-level way to distinguish a RAiD from a DOI. As with
+``doi_regexp``, the trailing ``(\\.\\d+)*`` allows for sub-prefixes.
+"""
+
 handle_regexp = re.compile(
     r"(hdl:\s*|(?:https?://)?hdl\.handle\.net/)?" r"([^/.]+(\.[^/.]+)*/.*)$", flags=re.I
 )
